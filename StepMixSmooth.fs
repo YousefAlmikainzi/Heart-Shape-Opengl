@@ -79,32 +79,24 @@ void main()
     float distanceX = myAbs(o_UV.x - .5);
     float distanceY = myAbs(o_UV.y - .5);
 
-    vec2 uv = o_UV;
-    uv.x = (uv.x - .25) * .5 + .5;
-    float lobeY = mySmoothstep(0.5, 0.75, o_UV.x) * mySmoothstep(1.0, 0.75, o_UV.x);
-    lobeY = lobeY * 0.275 + 0.479;
+    float lobeY = (-0.5 * o_UV.x + 1.0) + mySmoothstep(0.5, 0.75, o_UV.x) * mySmoothstep(1.0, 0.75, o_UV.x) * .15;
     float lobeDist = myAbs(o_UV.y - lobeY);
     float lobe = 1.0 - mySmoothstep(0.0, 0.025, lobeDist);
     lobe *= myStep(.5, o_UV.y);
+    lobe *= myStep(.5, o_UV.x);
 
-    float lobeY2 = mySmoothstep(0.0, 0.25, o_UV.x) * mySmoothstep(0.5, 0.25, o_UV.x);
-    lobeY2 = lobeY2 * 0.275 + 0.479;
+    float lobeY2 = (0.5 * o_UV.x + 0.5) + mySmoothstep(0.0, 0.25, o_UV.x) * mySmoothstep(0.5, 0.25, o_UV.x) * .15;
     float lobeDist2 = myAbs(o_UV.y - lobeY2);
     float lobe2 = 1.0 - mySmoothstep(0.0, 0.025, lobeDist2);
     lobe2 *= myStep(.5, o_UV.y);
+    lobe2 *= myStep(.5, 1 - o_UV.x);
 
 
     float halfDiagline1 = 1.0 - mySmoothstep(0,0.025, myAbs(o_UV.x - (0.5 - o_UV.y)));
     halfDiagline1 *= myStep(.5, 1 - o_UV.y);
 
-    float halfDiagline2 = 1.0 - mySmoothstep(0,0.005, myAbs(o_UV.x - o_UV.y + .5));
-    halfDiagline2 *= myStep(.5, o_UV.y);
-
     float halfDiagline3 = 1.0 - mySmoothstep(0,0.025, myAbs(o_UV.x - o_UV.y - .5));
     halfDiagline3 *= myStep(.5, o_UV.x);
-
-    float halfDiagline4 = 1.0 - mySmoothstep(0,0.005, myAbs(o_UV.x + o_UV.y - 1.5));
-    halfDiagline4 *= myStep(.5, o_UV.x);
 
     vec3 final = vec3(0,0,0);
     final = myMix(final, vec3(1.0, 0.4, 0.7), lobe);
