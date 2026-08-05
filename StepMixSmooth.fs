@@ -76,9 +76,6 @@ float myAbs(float x)
 
 void main()
 {
-    float distanceX = myAbs(o_UV.x - .5);
-    float distanceY = myAbs(o_UV.y - .5);
-
     float lobeY = (-0.5 * o_UV.x + 1.0) + mySmoothstep(0.5, 0.75, o_UV.x) * mySmoothstep(1.0, 0.75, o_UV.x) * .15;
     float lobeDist = myAbs(o_UV.y - lobeY);
     float lobe = 1.0 - mySmoothstep(0.0, 0.025, lobeDist);
@@ -103,8 +100,6 @@ void main()
     final = myMix(final, vec3(1.0, 0.4, 0.7), lobe2);
     final = myMix(final, vec3(1.0, 0.4, 0.7), halfDiagline1);
     final = myMix(final, vec3(1.0, 0.4, 0.7), halfDiagline3);
-
-    //final = myMix(final, vec3(0,1,0), simplerExample1);
 
     finalColor = vec4(final, 1.0);
 }
