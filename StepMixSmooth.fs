@@ -89,17 +89,17 @@ void main()
     lobe2 *= myStep(.5, 1 - o_UV.x);
 
 
-    float halfDiagline1 = 1.0 - mySmoothstep(0,0.025, myAbs(o_UV.x - (0.5 - o_UV.y)));
-    halfDiagline1 *= myStep(.5, 1 - o_UV.y);
+    float heartEdgeLeft = 1.0 - mySmoothstep(0,0.025, myAbs(o_UV.x - (0.5 - o_UV.y)));
+    heartEdgeLeft *= myStep(.5, 1 - o_UV.y);
 
-    float halfDiagline3 = 1.0 - mySmoothstep(0,0.025, myAbs(o_UV.x - o_UV.y - .5));
-    halfDiagline3 *= myStep(.5, o_UV.x);
+    float heartEdgeRight = 1.0 - mySmoothstep(0,0.025, myAbs(o_UV.x - o_UV.y - .5));
+    heartEdgeRight *= myStep(.5, o_UV.x);
 
     vec3 final = vec3(0,0,0);
     final = myMix(final, vec3(1.0, 0.4, 0.7), lobe);
     final = myMix(final, vec3(1.0, 0.4, 0.7), lobe2);
-    final = myMix(final, vec3(1.0, 0.4, 0.7), halfDiagline1);
-    final = myMix(final, vec3(1.0, 0.4, 0.7), halfDiagline3);
+    final = myMix(final, vec3(1.0, 0.4, 0.7), heartEdgeLeft);
+    final = myMix(final, vec3(1.0, 0.4, 0.7), heartEdgeRight);
 
     finalColor = vec4(final, 1.0);
 }
